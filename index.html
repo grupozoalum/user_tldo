@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mi Fracc">
+  <meta name="format-detection" content="telephone=no">
+  <title>Mi Fraccionamiento · Portal de Residentes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="residente.css">
+
+  <!-- Generador de QR gratuito (qrcode.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ============ ICONOS ============ -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="11" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="18"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2M20 14v2"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M19 5.5a9 9 0 0 1 0 13"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol>
+    <symbol id="i-vote" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-chev-l" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-chev-r" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/><path d="M12 2v5M22 10l-6 0M19 19l-4.5-4M5 19l4.5-4M2 10h6"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 2l6 8h-3l4 6H5l4-6H6z"/><line x1="12" y1="16" x2="12" y2="22"/></symbol>
+    <symbol id="i-party" viewBox="0 0 24 24"><path d="M3 21l5-14 9 9z"/><path d="M14 4l1 2M19 3l-1 3M21 9l-3 1M16 8l-2 2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
+  </svg>
+
+  <!-- ============ CARGA ============ -->
+  <div class="boot" id="boot"><div class="spinner"></div><p>Cargando tu portal…</p></div>
+
+  <!-- ============ INICIO DE SESIÓN ============ -->
+  <section class="login" id="login" hidden aria-labelledby="login-title">
+    <form class="login__card" id="form-login" novalidate>
+      <span class="login__logo"><svg class="icon"><use href="#i-home"/></svg></span>
+      <h1 class="login__title" id="login-title">Mi Fraccionamiento</h1>
+      <p class="login__sub">Entra con el correo y la contraseña que te dio la administración.</p>
+      <label class="field">
+        <span class="field__label">Correo electrónico</span>
+        <input type="email" id="login-email" required autocomplete="username" inputmode="email" placeholder="tucorreo@ejemplo.com">
+      </label>
+      <label class="field">
+        <span class="field__label">Contraseña</span>
+        <input type="password" id="login-pass" required autocomplete="current-password" placeholder="••••••••">
+      </label>
+      <p class="form-error" id="login-error" role="alert"></p>
+      <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-login">Entrar</button>
+      <button type="button" class="link-btn login__forgot" id="btn-olvide">¿Olvidaste tu contraseña?</button>
+    </form>
+  </section>
+
+  <div class="app" id="app" hidden>
+
+    <!-- ============ BARRA SUPERIOR ============ -->
+    <header class="appbar">
+      <button type="button" class="appbar__avatar" id="avatar" data-action="perfil" aria-label="Mi perfil">R</button>
+      <div class="appbar__info">
+        <p class="appbar__hello" id="saludo">Hola</p>
+        <p class="appbar__casa"><span class="rol-chip" id="rol-label">Titular</span><svg class="icon"><use href="#i-home"/></svg><span id="casa-label">—</span></p>
+      </div>
+      <button type="button" class="status-pill is-loading" id="pill-pago" data-go="pagos" aria-label="Ver estatus de pago">
+        <span class="status-pill__dot"></span><span id="pill-pago-text">Verificando…</span>
+      </button>
+    </header>
+
+    <div class="offline-bar" id="offline-bar" hidden>
+      <svg class="icon"><use href="#i-wifi-off"/></svg> Sin conexión. Los cambios se enviarán al reconectar.
+    </div>
+
+    <main class="views" id="views">
+
+      <!-- ===================== INICIO ===================== -->
+      <section class="view is-active" id="view-inicio" aria-labelledby="t-inicio">
+        <h1 class="sr-only" id="t-inicio">Inicio</h1>
+
+        <article class="hero" id="hero-pago">
+          <div class="hero__top">
+            <span class="hero__label">Mantenimiento</span>
+            <span class="hero__badge" id="hero-badge">—</span>
+          </div>
+          <p class="hero__title" id="hero-title">Consultando tu estatus…</p>
+          <p class="hero__sub" id="hero-sub">&nbsp;</p>
+          <button type="button" class="hero__link" data-go="pagos">Ver historial <svg class="icon"><use href="#i-chev-r"/></svg></button>
+        </article>
+
+        <div class="quick">
+          <button type="button" class="quick__item" data-go="pases"><span class="quick__icon quick__icon--a"><svg class="icon"><use href="#i-ticket"/></svg></span><span>Pase visita</span></button>
+          <button type="button" class="quick__item" data-go="reservar"><span class="quick__icon quick__icon--b"><svg class="icon"><use href="#i-calendar"/></svg></span><span>Reservar</span></button>
+          <button type="button" class="quick__item" data-go="reportes"><span class="quick__icon quick__icon--c"><svg class="icon"><use href="#i-flag"/></svg></span><span>Reportar</span></button>
+          <button type="button" class="quick__item" data-action="mi-qr"><span class="quick__icon quick__icon--d"><svg class="icon"><use href="#i-qr"/></svg></span><span>Mi QR</span></button>
+        </div>
+
+        <div class="section-head">
+          <h2 class="section-title">Novedades</h2>
+        </div>
+        <div class="chips-scroll" id="feed-filtro" role="tablist" aria-label="Filtrar novedades">
+          <button type="button" class="pill is-active" data-filtro="todos">Todo</button>
+          <button type="button" class="pill" data-filtro="Noticia">Noticias</button>
+          <button type="button" class="pill" data-filtro="Aviso">Avisos</button>
+          <button type="button" class="pill" data-filtro="Evento">Eventos</button>
+          <button type="button" class="pill" data-filtro="Votación">Votaciones</button>
+        </div>
+        <div class="feed" id="feed">
+          <div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </section>
+
+      <!-- ===================== PAGOS ===================== -->
+      <section class="view" id="view-pagos" aria-labelledby="t-pagos" hidden>
+        <div class="view-head">
+          <h1 class="view-title" id="t-pagos">Mi mantenimiento</h1>
+          <p class="view-desc">Estatus de tu cuota y meses cubiertos.</p>
+        </div>
+
+        <article class="card status-card" id="status-card">
+          <div class="status-card__icon" id="status-icon"><svg class="icon"><use href="#i-clock"/></svg></div>
+          <div class="status-card__body">
+            <p class="status-card__label">Estatus actual</p>
+            <p class="status-card__value" id="status-value">Verificando…</p>
+            <p class="status-card__meta" id="status-meta">&nbsp;</p>
+          </div>
+        </article>
+
+        <p class="note" id="nota-historial" hidden><svg class="icon"><use href="#i-lock"/></svg>Tu perfil es de inquilino: el historial de pagos solo lo consultan los titulares de la casa. Aquí ves si la cuota está al corriente, que es lo que se revisa para reservar amenidades.</p>
+
+        <article class="card" id="card-historial">
+          <div class="year-nav">
+            <button type="button" class="icon-btn" id="anio-prev" aria-label="Año anterior"><svg class="icon"><use href="#i-chev-l"/></svg></button>
+            <div class="year-nav__center">
+              <p class="year-nav__year" id="anio-label">2026</p>
+              <p class="year-nav__sum" id="anio-resumen">—</p>
+            </div>
+            <button type="button" class="icon-btn" id="anio-next" aria-label="Año siguiente"><svg class="icon"><use href="#i-chev-r"/></svg></button>
+          </div>
+          <div class="months" id="meses-grid" role="list"></div>
+          <ul class="legend">
+            <li><span class="legend__dot legend__dot--pagado"></span>Pagado</li>
+            <li><span class="legend__dot legend__dot--pendiente"></span>Mes en curso</li>
+            <li><span class="legend__dot legend__dot--adeudo"></span>Sin pago</li>
+            <li><span class="legend__dot legend__dot--futuro"></span>Próximo</li>
+          </ul>
+        </article>
+
+        <p class="note"><svg class="icon"><use href="#i-alert"/></svg>Si ya pagaste y no aparece reflejado, envía tu comprobante a la administración. El registro lo actualiza el administrador.</p>
+      </section>
+
+      <!-- ===================== PASES QR ===================== -->
+      <section class="view" id="view-pases" aria-labelledby="t-pases" hidden>
+        <div class="view-head">
+          <h1 class="view-title" id="t-pases">Pases de visita</h1>
+          <p class="view-desc">Genera un código QR para que tu visita entre por caseta.</p>
+        </div>
+
+        <form class="card form" id="form-pase" novalidate>
+          <label class="field">
+            <span class="field__label">Nombre de la visita *</span>
+            <input type="text" name="visitante" required minlength="3" maxlength="80" autocomplete="off" placeholder="Ej. Juan Hernández">
+          </label>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field__label">Tipo de visita</span>
+              <select name="tipoVisita">
+                <option value="Visita">Visita familiar / amigos</option>
+                <option value="Servicio">Servicio / técnico</option>
+                <option value="Entrega">Paquetería / entrega</option>
+                <option value="Evento">Invitado a evento</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field__label">Placas (opcional)</span>
+              <input type="text" name="placas" maxlength="12" autocomplete="off" placeholder="ABC-123-D" style="text-transform:uppercase">
+            </label>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field__label">Fecha y hora de llegada *</span>
+              <input type="datetime-local" name="llegada" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Duración del pase *</span>
+              <select name="duracion" required>
+                <option value="4">4 horas</option>
+                <option value="12">12 horas</option>
+                <option value="24" selected>1 día</option>
+                <option value="72">3 días</option>
+                <option value="168">7 días</option>
+              </select>
+            </label>
+          </div>
+
+          <p class="form-error" id="pase-error" role="alert"></p>
+          <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-pase">
+            <svg class="icon"><use href="#i-qr"/></svg> Generar pase QR
+          </button>
+        </form>
+
+        <article class="card pass" id="pase-resultado" hidden>
+          <div class="pass__head">
+            <span class="badge badge--success">Pase generado</span>
+            <button type="button" class="icon-btn" id="pase-cerrar" aria-label="Ocultar pase"><svg class="icon"><use href="#i-x"/></svg></button>
+          </div>
+          <div class="qr-box" id="pase-qr" aria-label="Código QR del pase"></div>
+          <dl class="pass__info" id="pase-info"></dl>
+          <div class="btn-row">
+            <button type="button" class="btn btn--ghost" data-action="descargar-pase"><svg class="icon"><use href="#i-download"/></svg> Descargar</button>
+            <button type="button" class="btn btn--primary" data-action="compartir-pase"><svg class="icon"><use href="#i-share"/></svg> Compartir</button>
+          </div>
+        </article>
+
+        <div class="section-head"><h2 class="section-title">Mis pases</h2></div>
+        <ul class="list" id="lista-pases"><li class="skeleton skeleton--row"></li></ul>
+      </section>
+
+      <!-- ===================== RESERVAR ===================== -->
+      <section class="view" id="view-reservar" aria-labelledby="t-res" hidden>
+        <div class="view-head">
+          <h1 class="view-title" id="t-res">Reservar amenidad</h1>
+          <p class="view-desc">Solicita 1 hora de cancha o parque. La administración confirmará tu solicitud.</p>
+        </div>
+
+        <div class="banner" id="reserva-banner" hidden></div>
+
+        <form class="card form" id="form-reserva" novalidate>
+          <fieldset class="amenities">
+            <legend class="field__label">Instalación *</legend>
+            <label class="amenity">
+              <input type="radio" name="amenidad" value="Cancha de pasto sintético" required checked>
+              <span class="amenity__box"><svg class="icon"><use href="#i-ball"/></svg><span class="amenity__name">Cancha sintética</span></span>
+            </label>
+            <label class="amenity">
+              <input type="radio" name="amenidad" value="Parque para fiestas">
+              <span class="amenity__box"><svg class="icon"><use href="#i-party"/></svg><span class="amenity__name">Parque de fiestas</span></span>
+            </label>
+            <label class="amenity">
+              <input type="radio" name="amenidad" value="Área verde / palapa">
+              <span class="amenity__box"><svg class="icon"><use href="#i-tree"/></svg><span class="amenity__name">Palapa</span></span>
+            </label>
+          </fieldset>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field__label">Fecha *</span>
+              <input type="date" name="fecha" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Hora de inicio (1 h) *</span>
+              <select name="hora" required></select>
+            </label>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span class="field__label">Número de personas</span>
+              <input type="number" name="invitados" min="1" max="80" inputmode="numeric" placeholder="Ej. 10">
+            </label>
+            <label class="field">
+              <span class="field__label">Motivo (opcional)</span>
+              <input type="text" name="notas" maxlength="120" placeholder="Ej. Partido de fútbol">
+            </label>
+          </div>
+
+          <p class="form-error" id="reserva-error" role="alert"></p>
+          <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-reserva">
+            <svg class="icon"><use href="#i-calendar"/></svg> Solicitar reservación
+          </button>
+          <p class="hint"><svg class="icon"><use href="#i-lock"/></svg>Requisito: mantenimiento al corriente. Se verifica al enviar.</p>
+        </form>
+
+        <div class="section-head"><h2 class="section-title">Mis reservaciones</h2></div>
+        <ul class="list" id="lista-reservas"><li class="skeleton skeleton--row"></li></ul>
+      </section>
+
+      <!-- ===================== REPORTES ===================== -->
+      <section class="view" id="view-reportes" aria-labelledby="t-rep" hidden>
+        <div class="view-head">
+          <h1 class="view-title" id="t-rep">Reportar a administración</h1>
+          <p class="view-desc">Informa fallas o situaciones en áreas comunes.</p>
+        </div>
+
+        <form class="card form" id="form-reporte" novalidate>
+          <label class="field">
+            <span class="field__label">Categoría *</span>
+            <select name="categoria" required>
+              <option value="Luminaria dañada">Luminaria dañada</option>
+              <option value="Fuga de agua">Fuga de agua</option>
+              <option value="Basura / limpieza">Basura / limpieza</option>
+              <option value="Ruido / vecinos">Ruido / vecinos</option>
+              <option value="Seguridad">Seguridad</option>
+              <option value="Áreas verdes">Áreas verdes</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Ubicación *</span>
+            <input type="text" name="ubicacion" required maxlength="100" placeholder="Ej. Poste frente a casa 18">
+          </label>
+          <label class="field">
+            <span class="field__label">Descripción *</span>
+            <textarea name="descripcion" rows="4" required minlength="10" maxlength="800" placeholder="Describe brevemente lo que ocurre…"></textarea>
+          </label>
+
+          <div class="field">
+            <span class="field__label">Fotografía (opcional)</span>
+            <label class="upload" id="upload-label">
+              <input type="file" name="foto" id="input-foto" accept="image/*">
+              <span class="upload__empty" id="upload-empty"><svg class="icon"><use href="#i-camera"/></svg><span>Tomar o elegir foto</span></span>
+              <img class="upload__preview" id="upload-preview" alt="Vista previa" hidden>
+            </label>
+            <button type="button" class="link-btn" id="quitar-foto" hidden>Quitar foto</button>
+          </div>
+
+          <p class="form-error" id="reporte-error" role="alert"></p>
+          <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-reporte">
+            <svg class="icon"><use href="#i-flag"/></svg> Enviar reporte
+          </button>
+        </form>
+
+        <div class="section-head"><h2 class="section-title">Mis reportes</h2></div>
+        <ul class="list" id="lista-reportes"><li class="skeleton skeleton--row"></li></ul>
+      </section>
+    </main>
+
+    <!-- ============ BOTÓN FIJO: MI QR ============ -->
+    <button type="button" class="fab" data-action="mi-qr" aria-label="Mostrar mi QR de residente">
+      <svg class="icon"><use href="#i-qr"/></svg><span class="fab__text">Mi QR</span>
+    </button>
+
+    <!-- ============ NAVEGACIÓN INFERIOR ============ -->
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button type="button" class="bottom-nav__item is-active" data-go="inicio" aria-current="page">
+        <span class="bottom-nav__icon"><svg class="icon"><use href="#i-home"/></svg></span><span class="bottom-nav__label">Inicio</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-go="pagos">
+        <span class="bottom-nav__icon"><svg class="icon"><use href="#i-card"/></svg></span><span class="bottom-nav__label">Pagos</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-go="pases">
+        <span class="bottom-nav__icon"><svg class="icon"><use href="#i-ticket"/></svg></span><span class="bottom-nav__label">Pases</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-go="reservar">
+        <span class="bottom-nav__icon"><svg class="icon"><use href="#i-calendar"/></svg></span><span class="bottom-nav__label">Reservar</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-go="reportes">
+        <span class="bottom-nav__icon"><svg class="icon"><use href="#i-flag"/></svg></span><span class="bottom-nav__label">Reportes</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ============ HOJA INFERIOR (modal) ============ -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet__backdrop" data-close-sheet></div>
+    <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet__handle" aria-hidden="true"></div>
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="sheet-title">Título</h2>
+        <button type="button" class="icon-btn" data-close-sheet aria-label="Cerrar"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="sheet__body" id="sheet-body"></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script type="module" src="residente.js"></script>
+</body>
+</html>
